@@ -12,15 +12,15 @@ class Cropper:
         self.table = []
         self.hand = []
         self.cards_in_hand = [
-            (740, 935, 100, 135),  # hand 1
-            (870, 935, 100, 135),  # hand 2
+            (743, 935, 50, 70),  # hand 1
+            (870, 935, 50, 70),  # hand 2
         ]
         self.cards_on_table = [
-            (600, 478, 95, 130),
-            (705, 478, 95, 130),
-            (808, 478, 95, 130),
-            (910, 478, 95, 130),
-            (1015, 478, 95, 130),
+            (600, 478, 50, 70),
+            (705, 478, 50, 70),
+            (808, 478, 50, 70),
+            (910, 478, 50, 70),
+            (1015, 478, 50, 70),
         ]
 
     def take_screen(self):
@@ -69,8 +69,9 @@ class Cropper:
     def run(self):
         self.take_screen()
         self.crop_image()
-        self.save_images()
-        self.save_images_t()
+        # self.save_images()
+        # self.save_images_t()
+        return [self.table, self.hand]
 
 
 if __name__ == "__main__":
