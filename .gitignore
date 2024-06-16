@@ -161,11 +161,12 @@ cython_debug/
 .idea/
 
 /test/
-/test/rubbish.py
+/staff/rubbish.py
 /TODO
 /Cards/
-/test/more_rubbish.py
+/staff/more_rubbish.py
 /Cards_c/
 /Cards_bl/
-/test/again.py
-/rubbish.py
+/staff/again.py
+/AmountRecognizer.py
+/Num/

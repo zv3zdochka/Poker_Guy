@@ -5,7 +5,7 @@ import pyautogui
 from Card import Card
 from Cropper import Cropper as Cut
 from Suit import Suit as Back
-from Recognizer import Recognizer as Reco
+from CardRecognizer import Recognizer as Reco
 import mss
 import cv2
 import pyautogui as pt
