@@ -1,11 +1,14 @@
 import time
 
+import pyautogui
+
 from Card import Card
 from Cropper import Cropper as Cut
 from Suit import Suit as Back
 from Recognizer import Recognizer as Reco
 import mss
 import cv2
+import pyautogui as pt
 import numpy as np
 from sklearn.cluster import KMeans
 
@@ -59,28 +62,32 @@ class Utils:
 
     def check_buttons_right(self):
         self.take_screen()
-        print(10)
         self.crop_right()
-        print(1)
         colors = self.get_colors(self.image)
-        print(colors)
         for i in colors:
             if i[0] > 235 and i[1] > 235 and i[2] > 235:
                 continue
-            elif i[0] > 100 > i[1] + i[2]:
+            elif i[0] < 200 and i[1] + i[2] > 100:
                 return True
 
-
     def crop_right(self):
-        for region in self.right_buttons:
-            x, y, w, h = region
-            self.image = self.screen[y:y + h, x:x + w]
-            cv2.imshow("img", self.image)
-            cv2.waitKey(0)
+        region = self.right_buttons[0]
+        x, y, w, h = region
+        self.image = self.screen[y:y + h, x:x + w]
+    @staticmethod
+    def click_check():
+        pyautogui.click(1800, 230)
+
+    @staticmethod
+    def click_call():
+        pyautogui.click(1800, 585)
+
+    @staticmethod
+    def click_raise_any():
+        pyautogui.click(1800, 925)
 
 
 if __name__ == "__main__":
     U = Utils()
-    print(123123123)
     time.sleep(3)
     U.check_buttons_right()
