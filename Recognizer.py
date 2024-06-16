@@ -20,7 +20,7 @@ class Recognizer:
 
         self.image = data
 
-    def run(self, path):
+    def _run_path(self, path):
         data = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
         if data is None:
             raise ValueError(f"Can't load image: {path}")
@@ -31,9 +31,17 @@ class Recognizer:
         output = {v: k for k, v in self.label_to_index.items()}[predicted_class]
         return output
 
+    def run(self, im):
+        self.input = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+        self.preprocess_image()
+        predicted_class = np.argmax(self.model.predict(self.image), axis=1)[0]
+
+        output = {v: k for k, v in self.label_to_index.items()}[predicted_class]
+        return output
+
 
 if __name__ == "__main__":
     R = Recognizer()
     image_path = r"C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_bl\4\4.jpg"
-    print(R.run(image_path))
-    print(R.run(r"C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_bl\D\D.jpg"))
+    print(R._run_path(image_path))
+    print(R._run_path(r"C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_bl\D\D.jpg"))
