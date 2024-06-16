@@ -78,4 +78,4 @@ model.fit(train_images, train_labels, batch_size=128, epochs=10, validation_data
 test_loss, test_accuracy = model.evaluate(test_images, test_labels)
 print(f'Accuracy: {test_accuracy}')
 
-model.save('PokerMan.h5')
+model.save('CardsRecognizer.h5')

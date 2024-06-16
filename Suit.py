@@ -8,11 +8,13 @@ class Suit:
         self.out = None
         self.colors = None
 
-    def get_colors(self):
+    def get_colors(self, out=False):
         img = self.image.reshape((self.image.shape[0] * self.image.shape[1], 3))
         kmeans = KMeans(n_clusters=2)
         kmeans.fit(img)
         self.colors = kmeans.cluster_centers_.astype(int)
+        if out:
+            return list(self.colors)
 
     def select_suit(self):
         two_colors = list(self.colors)
@@ -35,14 +37,14 @@ class Suit:
         self.get_colors()
         return self.select_suit()
 
-    def _run_path(self, path):
-        self.image = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
+    def _run_path(self, p):
+        self.image = cv2.cvtColor(cv2.imread(p), cv2.COLOR_BGR2RGB)
         self.get_colors()
         return self.select_suit()
 
 
 if __name__ == "__main__":
-    img = r'C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_c\2_C.jpg'
-    image = cv2.imread(img)
+    path = r'C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_c\2_C.jpg'
+    image = cv2.imread(path)
     dc = Suit()
     print(dc.run(image))
