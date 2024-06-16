@@ -161,8 +161,11 @@ cython_debug/
 .idea/
 
 /test/
-/rubbish.py
+/test/rubbish.py
 /TODO
 /Cards/
-/more_rubbish.py
+/test/more_rubbish.py
 /Cards_c/
+/Cards_bl/
+/test/again.py
+/rubbish.py
