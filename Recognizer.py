@@ -43,5 +43,4 @@ class Recognizer:
 if __name__ == "__main__":
     R = Recognizer()
     image_path = r"C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_bl\4\4.jpg"
-    print(R._run_path(image_path))
-    print(R._run_path(r"C:\Users\batsi\PycharmProjects\Poker_Guy\Cards_bl\D\D.jpg"))
+    print(R._run_path(r"D:\Dataset\Cards\F\e779adc5-f2ed-4e49-9de6-ba0ba37c4186_gray_copy_1.png"))

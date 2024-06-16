@@ -69,6 +69,7 @@ class Cropper:
     def run(self):
         self.take_screen()
         self.crop_image()
+        self.save_images()
         return [self.table, self.hand]
 
 
