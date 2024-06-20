@@ -26,9 +26,10 @@ class Utils:
             (1695, 510, 150, 170),
             (1695, 860, 150, 170)
         ]
+        self.amount = [(865, 395, 200, 45)]
         print("System ready")
 
-    def take_cards(self):
+    async def take_cards(self):
         data = self.cutter.run()
         table_cards = data[0]
         hand_cards = data[1]
@@ -43,6 +44,12 @@ class Utils:
             hand.append(card_data)
         [print(x) for x in hand]
         [print(x) for x in table]
+        return 1
+
+    async def take_amount(self):
+        print(1)
+        return 0
+
 
     def take_screen(self):
         with mss.mss() as sct:
@@ -74,6 +81,14 @@ class Utils:
         region = self.right_buttons[0]
         x, y, w, h = region
         self.image = self.screen[y:y + h, x:x + w]
+
+    def crop_amount(self):
+        region = self.amount[0]
+        x, y, w, h = region
+        self.image = self.screen[y:y + h, x:x + w]
+        cv2.imshow("img", self.image)
+        cv2.waitKey(0)
+
     @staticmethod
     def click_check():
         pyautogui.click(1800, 230)
@@ -86,8 +101,38 @@ class Utils:
     def click_raise_any():
         pyautogui.click(1800, 925)
 
+    def get_amount(self):
+        self.take_screen()
+        self.crop_amount()
+        self.split_amount()
+
+    def split_amount(self):
+        img = self.image
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        inverted_image = cv2.bitwise_not(gray)
+        ret, thresh = cv2.threshold(inverted_image, 0, 255, cv2.THRESH_BINARY)
+        img_erode = cv2.erode(thresh, np.ones((3, 3), np.uint8), iterations=1)
+
+        # Get contours
+        contours, hierarchy = cv2.findContours(img_erode, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+
+        output = img.copy()
+
+        for idx, contour in enumerate(contours):
+            (x, y, w, h) = cv2.boundingRect(contour)
+            if hierarchy[0][idx][3] == 0:
+                cv2.rectangle(output, (x, y), (x + w, y + h), (70, 0, 0), 1)
+
+        cv2.imshow("Input", img)
+        cv2.imshow("Enlarged", img_erode)
+        cv2.imshow("Output", output)
+        cv2.waitKey(0)
+
+
+
 
 if __name__ == "__main__":
     U = Utils()
     time.sleep(3)
-    U.check_buttons_right()
+
+    U.get_amount()

@@ -4,7 +4,6 @@ from Utils import Utils
 
 
 class Game(Utils):
-    # n players at the table
     def __init__(self):
         super().__init__()
 
@@ -18,9 +17,10 @@ class Game(Utils):
                 return
 
     async def play(self):
-        # all previous staff like select game and amount of money
-        await self.check_active()
-        print(333)
+        while True:
+            await self.check_active()
+            await self.take_cards()
+            await self.take_amount()
 
 
 
